@@ -1,11 +1,62 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import Ornament from '../components/Ornament.astro';
+import { getPosts } from '../lib/posts';
+const posts = (await getPosts()).slice(0, 4);
 ---
+<BaseLayout>
+  <section class="intro" aria-labelledby="welcome">
+    <p class="eyebrow label" lang="en">A few words to begin</p>
+    <h1 id="welcome">纸短，故事长。</h1>
+    <p>你好，我是 <span lang="en">Langxi Yuan</span>。<br />欢迎来到我的一小片互联网。</p>
+    <p>这里放文字、想法，以及生活里值得记下的片刻。<br class="desktop-break" />不必匆忙，翻开一页，坐一会儿。</p>
+    <a class="about-link" href="/about/" lang="en">A little more about me <span aria-hidden="true">→</span></a>
+  </section>
 
-<Layout>
-	<Welcome />
-</Layout>
+  <Ornament />
+
+  <section aria-labelledby="latest">
+    <div class="section-heading ruled" lang="en">
+      <h2 id="latest">Latest writing</h2>
+      <a class="label" href="/blog/">All entries <span aria-hidden="true">→</span></a>
+    </div>
+    <PostList posts={posts} />
+  </section>
+
+  <aside class="in-the-margins ruled" aria-labelledby="margins">
+    <h2 id="margins" lang="en">In the margins</h2>
+    <div class="margin-links">
+      <div>
+        <p class="label eyebrow" lang="en">On the workbench</p>
+        <p>把想法做成可以触碰的东西。</p>
+        <a href="/projects/" lang="en">Browse projects <span aria-hidden="true">→</span></a>
+      </div>
+      <div>
+        <p class="label eyebrow" lang="en">At this moment</p>
+        <p>一份关于当下的小小记录。</p>
+        <a href="/now/" lang="en">What I’m doing now <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </aside>
+</BaseLayout>
+
+<style>
+  .intro { padding-block: var(--space-1); }
+  .intro h1 { margin-bottom: var(--space-3); font-size: clamp(2rem, 5vw, 2.55rem); letter-spacing: .05em; }
+  .intro > p:not(.eyebrow) { margin-bottom: var(--space-2); }
+  .about-link { display: inline-block; margin-top: .25rem; font-style: italic; font-size: 1.05rem; }
+  .about-link span { margin-left: .35rem; }
+  .in-the-margins { margin-top: var(--space-5); }
+  .in-the-margins h2 { font-size: 1.5rem; margin-bottom: var(--space-3); }
+  .margin-links { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .margin-links > div + div { border-left: 1px solid var(--rule); padding-left: var(--space-3); }
+  .margin-links .eyebrow { margin-bottom: var(--space-1); font-size: .63rem; }
+  .margin-links p:not(.eyebrow) { font-size: 1rem; margin-bottom: .3rem; }
+  .margin-links a { display: inline-block; padding-block: .3rem; font-size: .95rem; font-style: italic; }
+  @media (max-width: 480px) {
+    .desktop-break { display: none; }
+    .margin-links { grid-template-columns: 1fr; }
+    .margin-links > div + div { border-left: 0; border-top: 1px solid var(--rule); padding: var(--space-3) 0 0; }
+  }
+</style>

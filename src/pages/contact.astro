@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Ornament from '../components/Ornament.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title="Contact" description="给 Langxi Yuan 打个招呼。联系方式与站外链接。">
+  <header class="page-heading">
+    <p class="eyebrow label" lang="en">A line between people</p>
+    <h1 lang="en">Say hello.</h1>
+    <p>文字之外，也欢迎一次交流。</p>
+  </header>
+  <p>关于文章的想法、项目的讨论，或只是打个招呼——可以从下面这些地方找到我。</p>
+  <dl class="contact-list">
+    <div><dt lang="en">Email</dt><dd>{site.email ? <a href={`mailto:${site.email}`}>{site.email}</a> : <span>邮箱地址暂未公开。</span>}</dd></div>
+    <div><dt lang="en">GitHub</dt><dd><a href={site.github} rel="me" lang="en">@yuanlx27 <span aria-hidden="true">↗</span></a></dd></div>
+    <div><dt lang="en">RSS</dt><dd><a href="/rss.xml" lang="en">Follow the journal <span aria-hidden="true">↗</span></a></dd></div>
+  </dl>
+  <Ornament />
+  <p class="postscript" lang="en">No forms, no mailing lists. Just a small corner of the open web.</p>
+</BaseLayout>
+<style>
+  .contact-list { margin: var(--space-5) 0; border-top: 3px double var(--rule); }
+  .contact-list > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: var(--space-2); padding-block: var(--space-3); border-bottom: 1px solid var(--rule); }
+  dt { font-family: var(--font-label); font-size: .8rem; padding-top: .25rem; }
+  dd { margin: 0; font-size: 1.05rem; }
+  dd > span { color: var(--ink-soft); }
+  .postscript { text-align: center; font-size: 1rem; font-style: italic; color: var(--ink-soft); }
+</style>

@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { isoDate, readingMinutes, tagUrl } from '../lib/posts';
+interface Props { post: CollectionEntry<'blog'>; }
+const { post } = Astro.props;
+---
+<div class="post-meta label" lang="en">
+  <span><time datetime={isoDate(post.data.pubDate)}>{isoDate(post.data.pubDate)}</time><span aria-hidden="true"> · </span>{readingMinutes(post.body)} min read</span>
+  {post.data.updatedDate && <span>Updated <time datetime={isoDate(post.data.updatedDate)}>{isoDate(post.data.updatedDate)}</time></span>}
+  {post.data.tags.length > 0 && <ul aria-label="Tags">{post.data.tags.map(tag => <li><a href={tagUrl(tag)} lang="zh-CN">{tag}</a></li>)}</ul>}
+</div>
+<style>
+  .post-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; color: var(--ink-soft); letter-spacing: 0; }
+  ul { display: flex; flex-wrap: wrap; gap: .75rem; list-style: none; padding: 0; margin: 0; }
+  a { padding-block: .25rem; }
+</style>

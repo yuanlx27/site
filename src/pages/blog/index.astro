@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts, tagUrl } from '../../lib/posts';
+const posts = await getPosts();
+const years = [...new Set(posts.map(post => post.data.pubDate.getUTCFullYear()))];
+const tags = [...new Set(posts.flatMap(post => post.data.tags))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+---
+<BaseLayout title="Blog" description="文字的存档。关于想法、日常，以及值得留下的片刻。">
+  <header class="page-heading">
+    <p class="eyebrow label" lang="en">The collected pages</p>
+    <h1 lang="en">Writing</h1>
+    <p>一些记录，一些思考。按时间，一页页收好。</p>
+  </header>
+  {tags.length > 0 && <nav class="tag-index label" aria-label="Browse by tag"><span lang="en">Filed under</span>{tags.map(tag => <a href={tagUrl(tag)}>{tag}</a>)}</nav>}
+  {posts.length === 0 && <PostList posts={[]} />}
+  {years.map(year => (
+    <section class="year" aria-labelledby={`year-${year}`}>
+      <div class="section-heading ruled"><h2 id={`year-${year}`}>{year}</h2><span class="label" lang="en">{posts.filter(p => p.data.pubDate.getUTCFullYear() === year).length} entries</span></div>
+      <PostList posts={posts.filter(post => post.data.pubDate.getUTCFullYear() === year)} />
+    </section>
+  ))}
+</BaseLayout>
+<style>
+  .tag-index { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin-bottom: var(--space-5); letter-spacing: 0; }
+  .tag-index span { color: var(--ink-soft); }
+  .tag-index a { padding-bottom: .25rem; }
+  .year + .year { margin-top: var(--space-5); }
+  .section-heading > span { color: var(--ink-soft); }
+</style>

@@ -1,0 +1,47 @@
+<div class="theme-toggle" lang="en" hidden>
+  <label class="label" for="theme">Reading light</label>
+  <select id="theme" name="theme" aria-label="Color theme">
+    <option value="system">System</option>
+    <option value="light">Light</option>
+    <option value="dark">Lamplight</option>
+  </select>
+</div>
+
+<script>
+  type Theme = 'light' | 'dark' | 'system';
+  const key = 'langxi-theme';
+  const select = document.querySelector<HTMLSelectElement>('#theme');
+  const validTheme = (value: string | null): Theme =>
+    value === 'light' || value === 'dark' ? value : 'system';
+
+  function applyTheme(theme: Theme) {
+    if (theme === 'system') delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = theme;
+    if (select) select.value = theme;
+  }
+
+  let initial: Theme = 'system';
+  try { initial = validTheme(localStorage.getItem(key)); } catch { /* Storage may be disabled. */ }
+  applyTheme(initial);
+  const control = document.querySelector<HTMLElement>('.theme-toggle');
+  if (control) control.hidden = false;
+
+  select?.addEventListener('change', () => {
+    const theme = validTheme(select.value);
+    applyTheme(theme);
+    try {
+      if (theme === 'system') localStorage.removeItem(key);
+      else localStorage.setItem(key, theme);
+    } catch { /* The control still works without persistence. */ }
+  });
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === key || event.key === null) applyTheme(validTheme(event.newValue));
+  });
+</script>
+
+<style>
+  .theme-toggle:not([hidden]) { display: flex; justify-content: center; align-items: center; gap: var(--space-2); }
+  label { color: var(--ink-soft); font-size: .65rem; letter-spacing: .02em; }
+  select { min-height: 44px; padding: .35rem 1.75rem .35rem .65rem; border: 1px solid var(--rule); border-radius: 0; color: var(--ink); background-color: var(--paper); font-family: var(--font-label); font-size: .7rem; cursor: pointer; }
+</style>

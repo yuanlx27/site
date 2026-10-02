@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Prose from '../components/Prose.astro';
+import Ornament from '../components/Ornament.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title="Now" description="一份当下的记录：这个网站正在慢慢成形。">
+  <header class="page-heading">
+    <p class="eyebrow label" lang="en">A small dispatch from the present</p>
+    <h1 lang="en">Now</h1>
+    <p class="label" lang="en">Last updated <time datetime={site.nowUpdated}>{site.nowUpdated}</time></p>
+  </header>
+  <Prose>
+    <p>这一页记录当下，而不是一份永远有效的自我介绍。</p>
+    <h2>搭一个自己的地方</h2>
+    <p>眼下，这个网站正在成形：把页面搭好，让中文与英文读起来舒服，给之后的文字留出位置。</p>
+    <h2>接下来</h2>
+    <ul>
+      <li>用真正的文章替换排版用的示例。</li>
+      <li>补上个人介绍、照片，以及公开的联系方式。</li>
+      <li>继续写，慢慢积累，不急着填满每一页。</li>
+    </ul>
+    <p>生活和工作的近况，会在准备好之后更新在这里。</p>
+  </Prose>
+  <Ornament />
+  <p class="now-note" lang="en">A “now page” is a snapshot, not a résumé. Inspired by <a href="https://nownownow.com/about">the /now movement</a>.</p>
+</BaseLayout>
+<style>.now-note { text-align: center; font-size: 1rem; font-style: italic; color: var(--ink-soft); }</style>

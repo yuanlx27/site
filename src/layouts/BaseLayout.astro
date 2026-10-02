@@ -1,0 +1,76 @@
+---
+import Masthead from '../components/Masthead.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import '@fontsource/im-fell-english/latin-400.css';
+import '@fontsource/im-fell-english/latin-400-italic.css';
+import '@fontsource/im-fell-english-sc/latin-400.css';
+import '@fontsource/special-elite/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import bodyFont from '@fontsource/im-fell-english/files/im-fell-english-latin-400-normal.woff2?url';
+import labelFont from '@fontsource/special-elite/files/special-elite-latin-400-normal.woff2?url';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/prose.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  published?: Date;
+  updated?: Date;
+  wide?: boolean;
+  noindex?: boolean;
+}
+const {
+  title, description = site.description, image = '/og-default.png',
+  imageAlt = 'Langxi Yuan — An ordinary man with an extraordinary dream',
+  type = 'website', published, updated, wide = false, noindex = false,
+} = Astro.props;
+const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — A personal journal`;
+const canonical = new URL(Astro.url.pathname.replace(/^\/404\/?$/, '/404.html'), Astro.site);
+const socialImage = new URL(image, Astro.site);
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — RSS`} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={labelFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://fontsapi.zeoseven.com" crossorigin />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    {published && <meta property="article:published_time" content={published.toISOString()} />}
+    {updated && <meta property="article:modified_time" content={updated.toISOString()} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+  </head>
+  <body>
+    <a class="skip-link" href="#content" lang="en">Skip to content</a>
+    <Masthead />
+    <main id="content" class:list={['shell', { wide }]} tabindex="-1"><slot /></main>
+    <Footer />
+    <!-- A body stylesheet lets the self-hosted/system text paint before the CDN responds. -->
+    <link rel="stylesheet" href="https://fontsapi.zeoseven.com/309/main/result.css" />
+  </body>
+</html>

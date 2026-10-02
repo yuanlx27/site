@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostList from '../../../components/PostList.astro';
+import { getPosts } from '../../../lib/posts';
+import type { CollectionEntry } from 'astro:content';
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = [...new Set(posts.flatMap(post => post.data.tags))];
+  return tags.map(tag => ({
+    params: { tag },
+    props: { tag, posts: posts.filter(post => post.data.tags.includes(tag)) },
+  }));
+}
+interface Props { tag: string; posts: CollectionEntry<'blog'>[]; }
+const { tag, posts } = Astro.props;
+---
+<BaseLayout title={`Filed under: ${tag}`} description={`归档在「${tag}」下的文章。`}>
+  <header class="page-heading">
+    <p class="eyebrow label" lang="en">Filed under</p>
+    <h1>{tag}</h1>
+    <p class="label" lang="en">{posts.length} {posts.length === 1 ? 'entry' : 'entries'} in this collection</p>
+  </header>
+  <div class="ruled"><PostList posts={posts} /></div>
+  <p class="back-link" lang="en"><a href="/blog/">← Back to all writing</a></p>
+</BaseLayout>
+<style>.back-link { margin-top: var(--space-5); font-size: 1rem; }</style>

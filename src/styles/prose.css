@@ -1,0 +1,38 @@
+.prose { max-width: 38rem; margin-inline: auto; }
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+.prose p { text-align: justify; text-justify: inter-ideograph; }
+.prose :lang(en) { line-height: 1.65; }
+.prose h2 { margin: var(--space-5) 0 var(--space-3); }
+.prose h3, .prose h4 { margin: var(--space-3) 0 var(--space-2); }
+.prose ul, .prose ol { padding-left: 1.5em; margin-block: var(--space-3); }
+.prose li { padding-left: .25em; margin-bottom: var(--space-1); }
+.prose li::marker { color: var(--ink-soft); }
+.prose blockquote {
+  margin: var(--space-5) 0;
+  border-left: 2px solid var(--rule);
+  padding: .25rem 0 .25rem var(--space-3);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+.prose code { font-family: var(--font-code); font-size: .8em; background: var(--paper-deep); padding: .15em .3em; overflow-wrap: anywhere; }
+.prose pre { max-width: 100%; overflow-x: auto; padding: var(--space-3); background: var(--paper-deep); border: 1px solid var(--rule); line-height: 1.7; }
+.prose pre code { padding: 0; font-size: .8rem; overflow-wrap: normal; }
+.prose table { display: block; max-width: 100%; width: max-content; overflow-x: auto; border-collapse: collapse; margin-block: var(--space-5); font-size: 1rem; }
+.prose th, .prose td { padding: .6rem 1rem; text-align: left; border: 1px solid var(--rule); min-width: 7rem; }
+.prose th { font-weight: 400; background: var(--paper-deep); }
+.prose tbody tr:nth-child(even) { background: var(--paper-deep); }
+.prose hr { border: 0; margin: var(--space-5) auto; text-align: center; height: 2rem; }
+.prose hr::after { content: "❦"; color: var(--ink-soft); font-size: 1.4rem; }
+.prose .footnotes { border-top: 1px solid var(--rule); margin-top: var(--space-5); padding-top: var(--space-2); font-size: .9rem; }
+.prose .footnotes h2 { font-size: 1rem; }
+.prose [role="doc-noteref"] { padding: .15rem; }
+.prose.drop-cap > p:first-of-type::first-letter {
+  float: left;
+  font-size: 4.8em;
+  line-height: 1;
+  margin: .08em .1em 0 0;
+  color: var(--accent);
+}
+.prose strong { font-weight: 400; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: .2em; }

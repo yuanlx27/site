@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import PostMeta from '../components/PostMeta.astro';
+import Prose from '../components/Prose.astro';
+import Ornament from '../components/Ornament.astro';
+interface Props { post: CollectionEntry<'blog'>; }
+const { post } = Astro.props;
+const { title, description, heroImage, heroAlt, pubDate, updatedDate } = post.data;
+---
+<BaseLayout title={title} description={description} type="article" published={pubDate} updated={updatedDate} image={heroImage?.src} imageAlt={heroAlt}>
+  <article>
+    <header class="page-heading">
+      <p class="eyebrow label" lang="en">From the journal</p>
+      <h1>{title}</h1>
+      <p class="description">{description}</p>
+      <PostMeta post={post} />
+    </header>
+    {heroImage && <figure><Image src={heroImage} alt={heroAlt!} widths={[360, 672, 1344]} sizes="(max-width: 720px) 90vw, 672px" loading="eager" /><figcaption>{heroAlt}</figcaption></figure>}
+    <Prose dropCap><slot /></Prose>
+    <Ornament />
+    <div class="endnote" lang="en"><a href="/blog/">← Back to all writing</a><a href="/rss.xml">Subscribe via RSS ↗</a></div>
+  </article>
+</BaseLayout>
+<style>
+  .description { margin-bottom: var(--space-3); color: var(--ink-soft); font-size: 1.05rem; }
+  .endnote { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); font-size: .95rem; }
+  .endnote a { padding-block: .5rem; }
+</style>

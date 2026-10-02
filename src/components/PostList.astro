@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { isoDate, postUrl, tagUrl } from '../lib/posts';
+interface Props { posts: CollectionEntry<'blog'>[]; }
+const { posts } = Astro.props;
+---
+{posts.length === 0 ? <p class="notice">这里还没有文章。留一张白纸，等下一次落笔。</p> : (
+  <ol class="post-list">
+    {posts.map(post => (
+      <li>
+        <article>
+          <time class="label" datetime={isoDate(post.data.pubDate)}>{isoDate(post.data.pubDate)}</time>
+          <div class="entry">
+            <h3><a href={postUrl(post.id)}>{post.data.title}</a></h3>
+            <p>{post.data.description}</p>
+            <ul class="tags" aria-label="Tags" lang="en">
+              {post.data.tags.map(tag => <li><a href={tagUrl(tag)} lang="zh-CN">{tag}</a></li>)}
+            </ul>
+          </div>
+        </article>
+      </li>
+    ))}
+  </ol>
+)}
+<style>
+  .post-list, .tags { margin: 0; padding: 0; list-style: none; }
+  .post-list > li { border-bottom: 1px solid var(--rule); }
+  .post-list > li:last-child { border-bottom: 0; }
+  article { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--space-2); padding-block: var(--space-3); }
+  time { padding-top: .45rem; color: var(--ink-soft); font-size: .7rem; letter-spacing: 0; }
+  h3 { font-family: var(--font-body); font-size: 1.45rem; line-height: 1.5; }
+  h3 a { color: var(--ink); text-decoration-color: var(--rule); text-underline-offset: .25em; }
+  h3 a:hover { color: var(--accent); text-decoration-color: currentColor; }
+  .entry > p { color: var(--ink-soft); font-size: 1rem; margin: .5rem 0; line-height: 1.8; }
+  .tags { display: flex; flex-wrap: wrap; column-gap: 1rem; font-family: var(--font-label); font-size: .7rem; }
+  .tags a { display: inline-block; padding-block: .25rem; }
+  @media (max-width: 480px) {
+    article { grid-template-columns: 1fr; gap: .3rem; }
+    time { padding-top: 0; }
+    h3 { font-size: 1.35rem; }
+  }
+</style>

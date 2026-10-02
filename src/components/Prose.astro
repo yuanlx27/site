@@ -1,0 +1,5 @@
+---
+interface Props { dropCap?: boolean; }
+const { dropCap = false } = Astro.props;
+---
+<div class:list={['prose', { 'drop-cap': dropCap }]}><slot /></div>

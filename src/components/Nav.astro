@@ -1,0 +1,21 @@
+---
+import { navigation } from '../data/site';
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<nav aria-label="Main navigation" lang="en">
+  {navigation.map(({ label, href }) => {
+    const route = href.replace(/\/$/, '') || '/';
+    const active = route === '/' ? pathname === '/' : pathname === route || pathname.startsWith(route + '/');
+    return <a href={href} aria-current={active ? 'page' : undefined}>{label}</a>;
+  })}
+</nav>
+
+<style>
+  nav { display: flex; flex-wrap: wrap; justify-content: center; column-gap: var(--space-3); border-top: 3px double var(--rule); border-bottom: 1px solid var(--rule); padding-block: .2rem; }
+  a { display: inline-flex; min-height: 44px; align-items: center; padding-inline: .25rem; color: var(--ink-soft); font-size: 1.05rem; }
+  a[aria-current] { color: var(--accent); text-decoration-thickness: 2px; }
+  @media (max-width: 480px) {
+    nav { column-gap: 0; }
+    a { justify-content: center; flex-basis: 33.333%; min-height: 40px; }
+  }
+</style>

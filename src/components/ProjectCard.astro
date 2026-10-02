@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  year: number;
+  summary: string;
+  url: string;
+  repo?: string;
+  number: string;
+}
+const { title, year, summary, url, repo, number } = Astro.props;
+---
+<article>
+  <div class="project-meta label" lang="en"><span>No. {number}</span><span>{year}</span></div>
+  <h2>{title}</h2>
+  <p>{summary}</p>
+  <div class="links" lang="en"><a href={url}>Explore project <span aria-hidden="true">↗</span></a>{repo && <a href={repo}>Source code <span aria-hidden="true">↗</span></a>}</div>
+</article>
+<style>
+  article { padding: var(--space-3); border: 1px solid var(--rule); border-top: 3px double var(--rule); background: color-mix(in srgb, var(--paper-deep) 35%, transparent); }
+  .project-meta { display: flex; justify-content: space-between; color: var(--ink-soft); font-size: .65rem; margin-bottom: var(--space-3); }
+  h2 { font-size: 1.8rem; margin-bottom: var(--space-2); }
+  p { font-size: 1.05rem; color: var(--ink-soft); }
+  .links { display: flex; flex-wrap: wrap; gap: var(--space-2); font-size: .95rem; }
+  .links a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; }
+</style>

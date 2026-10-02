@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Prose from '../components/Prose.astro';
+import Ornament from '../components/Ornament.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title="About" description="关于 Langxi Yuan，以及这个慢慢生长的个人网站。">
+  <header class="page-heading">
+    <p class="eyebrow label" lang="en">The person behind the pages</p>
+    <h1 lang="en">About me</h1>
+  </header>
+  <div class="introduction">
+    <div class="portrait-placeholder" aria-label="Portrait not yet provided" lang="en">
+      <span class="monogram" aria-hidden="true">LY</span>
+      <span class="label">Portrait forthcoming</span>
+    </div>
+    <div>
+      <h2 lang="en">Hello, I’m Langxi.</h2>
+      <p>一个普通人，怀着一个不普通的梦。</p>
+      <p class="motto" lang="en">{site.tagline}.</p>
+    </div>
+  </div>
+  <Prose>
+    <h2>关于这里</h2>
+    <p>这是我的个人网站。一个用来放文字、留想法，也让你多认识我一点的地方。</p>
+    <p>它不追求热闹。纸张的暖色、墨迹的深浅，还有字与字之间的留白，是这里的底色。中文为主，偶尔夹杂英文；像一本随手翻开的旧书，也像一份只印给自己的小报。</p>
+    <h2>故事还在继续</h2>
+    <p>更长的自我介绍、兴趣清单和一张照片，还没有放进来。这一页先留些空白，等真实的故事慢慢填满。</p>
+  </Prose>
+  <Ornament />
+  <p class="closing">想知道这里最近在忙什么，可以看看 <a href="/now/" lang="en">Now</a>；想打个招呼，就去 <a href="/contact/" lang="en">Contact</a>。</p>
+</BaseLayout>
+<style>
+  .introduction { display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: var(--space-5); align-items: center; width: fit-content; max-width: 100%; margin: 0 auto var(--space-5); }
+  .portrait-placeholder { aspect-ratio: 4 / 5; padding: var(--space-2); border: 1px solid var(--rule); outline: 1px solid var(--rule); outline-offset: -7px; background: var(--paper-deep); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .monogram { font-family: var(--font-heading); font-size: 3.5rem; color: var(--ink-soft); line-height: 1.5; }
+  .portrait-placeholder .label { font-size: .55rem; color: var(--ink-soft); }
+  .introduction h2 { margin-bottom: var(--space-2); }
+  .introduction p { margin-bottom: var(--space-2); }
+  .introduction p:last-child { margin-bottom: 0; }
+  .motto { font-size: 1rem; color: var(--ink-soft); font-style: italic; }
+  .closing { max-width: 38rem; margin-inline: auto; }
+  @media (max-width: 480px) { .introduction { grid-template-columns: 1fr; gap: var(--space-3); justify-items: center; text-align: center; } .portrait-placeholder { width: 9rem; } }
+</style>

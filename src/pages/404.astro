@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Ornament from '../components/Ornament.astro';
+---
+<BaseLayout title="Page not found" description="这一页似乎走散了。回到首页，或者去文章归档看看。" noindex>
+  <div class="missing">
+    <p class="eyebrow label" lang="en">Erratum · 404</p>
+    <h1 lang="en">A page gone astray.</h1>
+    <Ornament />
+    <p>这一页似乎夹进了别的书里。<br />也许地址写错了，也许它已经搬了家。</p>
+    <div class="links" lang="en"><a href="/">← Return home</a><a href="/blog/">Browse the journal →</a></div>
+  </div>
+</BaseLayout>
+<style>
+  .missing { text-align: center; padding-block: var(--space-5); }
+  .links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); justify-content: center; font-size: 1rem; }
+  .links a { padding-block: .5rem; }
+</style>

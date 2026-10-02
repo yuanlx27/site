@@ -1,0 +1,48 @@
+:root {
+  color-scheme: light;
+  --paper: #f4ecd8;
+  --paper-deep: #e9dec3;
+  --ink: #2b2118;
+  --ink-soft: #6b5a45;
+  --rule: #b9a98a;
+  --accent: #8b2e2a;
+  --accent-hover: #5e1d1a;
+  --grain-opacity: .04;
+  /* The CDN's actual family name is KingHwaOldSong. Latin always comes first. */
+  --font-body: "IM Fell English", "KingHwaOldSong", Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+  --font-heading: "IM Fell English SC", "KingHwaOldSong", Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+  --font-label: "Special Elite", "KingHwaOldSong", "Courier New", "Songti SC", serif;
+  --font-code: "IBM Plex Mono", "KingHwaOldSong", ui-monospace, "Songti SC", monospace;
+  --space: .5rem;
+  --space-1: var(--space);
+  --space-2: calc(var(--space) * 2);
+  --space-3: calc(var(--space) * 3);
+  --space-5: calc(var(--space) * 5);
+  --space-8: calc(var(--space) * 8);
+}
+
+/* Untoggled visitors get the right palette before any JavaScript loads. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #1e1913;
+    --paper-deep: #2a231a;
+    --ink: #e8dcc2;
+    --ink-soft: #a89a80;
+    --rule: #4a3f30;
+    --accent: #d08a5c;
+    --accent-hover: #e6af87;
+    --grain-opacity: .02;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #1e1913;
+  --paper-deep: #2a231a;
+  --ink: #e8dcc2;
+  --ink-soft: #a89a80;
+  --rule: #4a3f30;
+  --accent: #d08a5c;
+  --accent-hover: #e6af87;
+  --grain-opacity: .02;
+}

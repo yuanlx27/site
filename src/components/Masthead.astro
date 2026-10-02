@@ -1,0 +1,31 @@
+---
+import Nav from './Nav.astro';
+import { site } from '../data/site';
+const date = new Date();
+const dateline = new Intl.DateTimeFormat('en-GB', {
+  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+}).format(date);
+---
+<header class="masthead shell" lang="en">
+  <div class="edition label"><span>A personal journal</span><span>Words &amp; other things</span></div>
+  <a class="site-title" href="/" aria-label={`${site.name} — Home`}>{site.name}</a>
+  <p class="tagline">{site.tagline}</p>
+  <p class="dateline label"><span aria-hidden="true">✦</span> <time datetime={date.toISOString().slice(0, 10)}>{dateline}</time> <span aria-hidden="true">✦</span></p>
+  <Nav />
+</header>
+
+<style>
+  .masthead { padding-top: var(--space-5); text-align: center; }
+  .edition { display: flex; justify-content: space-between; color: var(--ink-soft); border-bottom: 1px solid var(--rule); padding-bottom: var(--space-1); text-transform: uppercase; font-size: .64rem; }
+  .site-title { display: block; padding-top: var(--space-3); font-family: var(--font-body); font-size: clamp(3.3rem, 10vw, 5.25rem); line-height: 1.15; letter-spacing: -.04em; color: var(--ink); text-decoration: none; }
+  .site-title:hover { color: var(--accent); }
+  .tagline { font-style: italic; font-size: 1.05rem; margin: .25rem 0 var(--space-2); line-height: 1.5; }
+  .dateline { display: flex; justify-content: center; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); color: var(--ink-soft); font-size: .66rem; letter-spacing: .02em; }
+  .dateline span { font-size: .6rem; }
+  @media (max-width: 480px) {
+    .masthead { padding-top: var(--space-3); }
+    .edition { font-size: .55rem; letter-spacing: .03em; }
+    .tagline { font-size: .9rem; }
+    .dateline { gap: .65rem; font-size: .59rem; }
+  }
+</style>
