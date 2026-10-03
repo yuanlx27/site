@@ -36,9 +36,11 @@ DESIGN.md 的中文排版补充约定。所有涉及中文与中西混排的规�
 |---|---|
 | 正文 / 标题 | `"IM Fell English", "KingHwa Old Song", "Songti SC", "Noto Serif CJK SC", serif` |
 | 点缀（日期、标签、日期线） | `"Special Elite", "KingHwa Old Song", "Courier New", monospace` |
-| 代码 | `"IBM Plex Mono", "KingHwa Old Song", ui-monospace, monospace` |
+| 代码 | `"TT2020 Style D", "KingHwa Old Song", ui-monospace, monospace` |
 
-注意：Special Elite 不含汉字，出现在打字机字体语境里的汉字（如中文标签）会回落老宋体，质感有轻微跳跃，可接受；日期一律使用数字格式规避（见 §5）。
+注意：Special Elite 不含汉字，出现在打字机字体语境里的汉字（如中文标签）会回落老宋体，质感有轻微跳跃，可接受；日期一律使用数字格式规避（见 §5）。同理，TT2020 Style D 也不含汉字，代码块中的中文回落老宋体。
+
+代码字体选型：TT2020 Style D（OFL 1.1，https://github.com/ctrlcctrlv/TT2020）是严格等宽的打字机字体，磨损极轻——字形完整、仅墨色偏淡略有不匀，与 IM Fell / 京华老宋体"保存完好的旧印刷品"气质一致。不在 Fontsource/Google Fonts 上，需手动子集化（拉丁子集 woff2 约 300KB）自托管。Style E/F/G 磨损过重影响阅读，Special Elite 并非真正等宽，均已排除。
 
 ## 4. 排版参数
 
