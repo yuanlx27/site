@@ -12,7 +12,7 @@
   --font-body: "IM Fell English", "KingHwaOldSong", Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
   --font-heading: "IM Fell English SC", "KingHwaOldSong", Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
   --font-label: "Special Elite", "KingHwaOldSong", "Courier New", "Songti SC", serif;
-  --font-code: "IBM Plex Mono", "KingHwaOldSong", ui-monospace, "Songti SC", monospace;
+  --font-code: "TT2020 Style E", "KingHwaOldSong", ui-monospace, "Songti SC", monospace;
   --space: .5rem;
   --space-1: var(--space);
   --space-2: calc(var(--space) * 2);

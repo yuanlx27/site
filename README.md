@@ -65,7 +65,10 @@ Use Markdown headings starting at `##` (the post title supplies the single `h1`)
 
 ### Fonts and themes
 
-Latin fonts are self-hosted with Fontsource and use `font-display: swap`.
+IM Fell English (+ SC) and Special Elite are self-hosted with Fontsource.
+Code uses a self-hosted Latin subset of TT2020 Style E (SIL OFL 1.1); its
+license and reproducible subsetting instructions live in `public/fonts/tt2020/`.
+All local fonts use `font-display: swap`.
 The only third-party runtime resource is the subsetted KingHwa Old Song font
 from ZeoSeven. Its actual CSS family name is `KingHwaOldSong`. System serif
 fallbacks keep the site usable if that CDN is unavailable.

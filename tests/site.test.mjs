@@ -62,6 +62,25 @@ test('every local link, fragment, and asset resolves', async () => {
   }
 });
 
+test('code uses the self-hosted TT2020 Latin subset with a Chinese fallback', async () => {
+  const css = (await Promise.all(allFiles.filter(file => file.endsWith('.css'))
+    .map(file => readFile(path.join(root, file), 'utf8')))).join('\n');
+  assert.match(css, /--font-code:\s*["']?TT2020 Style E["']?,\s*["']?KingHwaOldSong/);
+  assert.match(css, /\.prose code\s*\{[^}]*font-family:var\(--font-code\)/);
+  const face = css.match(/@font-face\s*\{[^}]*font-family:["']?TT2020 Style E["']?[^}]*\}/)?.[0];
+  assert.ok(face, 'TT2020 @font-face must be included in the built CSS');
+  assert.match(face, /font-display:swap/);
+  assert.match(face, /\/fonts\/tt2020\/tt2020-style-e-latin-400-normal\.woff2/);
+  assert.match(face, /unicode-range:/);
+  assert.doesNotMatch(css, /IBM Plex Mono|ibm-plex-mono/);
+  const font = await readFile(path.join(root, 'fonts/tt2020/tt2020-style-e-latin-400-normal.woff2'));
+  assert.equal(font.toString('ascii', 0, 4), 'wOF2');
+  assert.ok(font.length < 900 * 1024, 'ship a subset, not the full font');
+  const license = await readFile(path.join(root, 'fonts/tt2020/OFL.txt'), 'utf8');
+  assert.match(license, /Fredrick R\. Brennan/);
+  assert.match(license, /SIL OPEN FONT LICENSE Version 1\.1/);
+});
+
 test('Chinese tag pages, chronological listings, RSS, and draft exclusion agree', async () => {
   const archive = await readFile(path.join(root, 'blog/index.html'), 'utf8');
   const dates = [...archive.matchAll(/<time[^>]*datetime="([^"]+)"/g)]

@@ -77,10 +77,10 @@ Rules:
 | Body (English) | IM Fell English | Georgia, serif |
 | Body (Chinese) | KingHwa Old Song, subsetted via CDN — see DESIGN.zh.md | Songti SC, Noto Serif CJK SC, serif |
 | Accents (dates, tags, labels) | Special Elite (typewriter) | "Courier New", monospace |
-| Code | TT2020 Style D (lightly worn typewriter, strictly monospaced) | ui-monospace, monospace |
+| Code | TT2020 Style E (lightly worn typewriter, strictly monospaced) | ui-monospace, monospace |
 
-- Self-host the Latin fonts: IM Fell English (+ SC) and Special Elite via Fontsource — only the weights actually used. TT2020 Style D is not on Fontsource or Google Fonts; self-host it manually as a Latin-subset woff2 (~300KB) from the upstream repo (OFL 1.1). The single exception to self-hosting is the Chinese webfont (subsetted CDN), covered in DESIGN.zh.md.
-- Code font rationale: wear must be hinted at, never heavy-handed — TT2020 Style D keeps letterforms intact and fully readable, with only faded, slightly uneven ink. The more distressed siblings (Styles E/F/G) are too rough for body-size code; Special Elite was rejected for code because it is not truly monospaced.
+- Self-host the Latin fonts: IM Fell English (+ SC) and Special Elite via Fontsource — only the weights actually used. TT2020 Style E is not on Fontsource or Google Fonts; self-host it manually as a Latin-subset woff2 (~800KB, calt alternates kept) from the upstream repo (OFL 1.1). The single exception to self-hosting is the Chinese webfont (subsetted CDN), covered in DESIGN.zh.md.
+- Code font rationale: wear must be hinted at, never heavy-handed — TT2020 Style E sits between the faded Style D and the heavy-ink Style B, keeping letterforms intact and fully readable with only lightly uneven ink. Styles F/G are too rough for body-size code; Special Elite was rejected for code because it is not truly monospaced.
 - Body: 18-20px, line-height 1.65, measure of 60-70 characters (`max-width: ~38rem`).
 - Headings: slightly tight line-height (1.2), small-caps or letter-spaced for section labels.
 - Use a **drop cap** on the first paragraph of posts (CSS `::first-letter`).
@@ -236,7 +236,7 @@ Projects can be a second collection (`src/content/projects/`) with `title`, `yea
 - **Dark mode:** light and lamplight both ship at launch; CSS-first system default plus a TS-only toggle.
 - **Tags:** tag pages at launch. **Search:** not planned.
 - **Language:** content primarily Chinese with English mixed in; UI chrome in English; no i18n routing — the font stack gives both scripts a consistent look (see DESIGN.zh.md).
-- **Fonts:** English defaults to IM Fell English; Chinese defaults to KingHwa Old Song (subsetted CDN); code defaults to TT2020 Style D (subsetted, self-hosted).
+- **Fonts:** English defaults to IM Fell English; Chinese defaults to KingHwa Old Song (subsetted CDN); code defaults to TT2020 Style E (subsetted, self-hosted).
 - **Hosting/domain:** GitHub Pages at `https://yuanlx27.github.io` (repo renamed to match).
 
 ---
@@ -245,5 +245,5 @@ Projects can be a second collection (`src/content/projects/`) with `title`, `yea
 
 - Astro docs: https://docs.astro.build
 - Astro theme library (for inspiration): https://astro.build/themes
-- Fonts: IM Fell English (+ SC), Special Elite via Fontsource; TT2020 Style D (OFL, https://github.com/ctrlcctrlv/TT2020) self-hosted as a Latin-subset woff2; KingHwa Old Song via zeoseven CDN (DESIGN.zh.md)
+- Fonts: IM Fell English (+ SC), Special Elite via Fontsource; TT2020 Style E (OFL, https://github.com/ctrlcctrlv/TT2020) self-hosted as a Latin-subset woff2; KingHwa Old Song via zeoseven CDN (DESIGN.zh.md)
 - Theme-toggle reference implementation (we deviate to CSS-first, TS-only): https://github.com/rnt-rez/minrock
