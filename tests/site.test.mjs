@@ -83,7 +83,18 @@ test('code uses the self-hosted TT2020 Latin subset with a Chinese fallback', as
   assert.match(license, /SIL OPEN FONT LICENSE Version 1\.1/);
 });
 
-test('Chinese tag pages, chronological listings, RSS, and draft exclusion agree', async () => {
+test('tag pages, chronological listings, RSS, and draft exclusion agree', async () => {
+  const contentRoot = 'src/content/blog';
+  const contentFiles = (await readdir(contentRoot, { recursive: true }))
+    .filter(file => file.endsWith('.md'));
+  const posts = await Promise.all(contentFiles.map(async file => {
+    const source = await readFile(path.join(contentRoot, file), 'utf8');
+    const frontmatter = source.split('---')[1];
+    return {
+      slug: file.replace(/(?:\/index)?\.md$/, ''),
+      draft: /^draft:\s*true\s*$/m.test(frontmatter),
+    };
+  }));
   const archive = await readFile(path.join(root, 'blog/index.html'), 'utf8');
   const dates = [...archive.matchAll(/<time[^>]*datetime="([^"]+)"/g)]
     .map(([, date]) => date).slice(1); // The first date belongs to the masthead.
@@ -91,18 +102,26 @@ test('Chinese tag pages, chronological listings, RSS, and draft exclusion agree'
   const rss = await readFile(path.join(root, 'rss.xml'), 'utf8');
   assert.match(rss, /<language>zh-CN<\/language>/);
   assert.equal((rss.match(/<item>/g) ?? []).length, dates.length);
+  assert.equal(dates.length, posts.filter(post => !post.draft).length);
   const sitemap = await readFile(path.join(root, 'sitemap-0.xml'), 'utf8');
   assert.doesNotMatch(sitemap, /\/404\//);
   for (const { file, html } of pages) {
-    assert.doesNotMatch(html, /Unpublished draft|draft-only/, file);
+    for (const post of posts.filter(post => post.draft)) {
+      assert.ok(!html.includes(`${basePath}blog/${post.slug}/`), `${file}: draft ${post.slug}`);
+    }
     if (file.startsWith('blog/') && !file.includes('/tags/') && file !== 'blog/index.html') {
       const url = new URL(basePath + file.replace(/index\.html$/, ''), origin).href;
       assert.ok(rss.includes(url), `RSS missing ${url}`);
       assert.ok(sitemap.includes(url), `Sitemap missing ${url}`);
     }
   }
-  assert.doesNotMatch(rss + sitemap, /draft-example|draft-only/);
-  assert.ok(!allFiles.some(file => /draft-example|draft-only/.test(file)));
+  for (const post of posts) {
+    const url = new URL(`${basePath}blog/${post.slug}/`, origin).href;
+    assert.equal(rss.includes(url), !post.draft, `RSS publication status: ${post.slug}`);
+    assert.equal(sitemap.includes(url), !post.draft, `Sitemap publication status: ${post.slug}`);
+    assert.equal(allFiles.includes(`blog/${post.slug}/index.html`), !post.draft,
+      `Page publication status: ${post.slug}`);
+  }
   for (const [, href] of archive.matchAll(/href="(\/site\/blog\/tags\/[^"]+)"/g)) {
     const tagPage = await readFile(path.join(root, decodeURIComponent(href.slice(basePath.length)), 'index.html'), 'utf8');
     assert.match(tagPage, /Filed under/);
