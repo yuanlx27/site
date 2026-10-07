@@ -13,7 +13,7 @@ body {
   min-width: 280px;
   font-size: 1.1875rem;
   line-height: 1.8;
-  background: radial-gradient(ellipse at center, transparent 45%, rgb(107 90 69 / .045));
+  background: radial-gradient(ellipse at center, transparent 45%, color-mix(in srgb, var(--ink-soft) 4.5%, transparent));
 }
 body::before {
   content: "";
@@ -22,10 +22,10 @@ body::before {
   pointer-events: none;
   z-index: -1;
   opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23grain)' opacity='.7' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.015 .65' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23grain)' opacity='.7' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
 }
 body { isolation: isolate; }
-::selection { color: var(--paper); background: var(--accent); }
+::selection { color: var(--ink); background: var(--selection); }
 a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: .22em; }
 a:hover { color: var(--accent-hover); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
@@ -73,6 +73,7 @@ main.wide { width: min(60rem, calc(100% - 3rem)); }
   :root, :root[data-theme] { --paper: #fff; --paper-deep: #f3f3f3; --ink: #000; --ink-soft: #333; --accent: #000; --rule: #aaa; color-scheme: light; }
   body { background: none; font-size: 12pt; }
   body::before, .skip-link, .theme-toggle, nav { display: none !important; }
+  .prose code, .prose .astro-code, .prose .astro-code span { color: inherit; background: transparent; }
   .shell, main.wide { width: 100%; max-width: 42rem; }
   a { color: inherit; }
   h1, h2, h3 { break-after: avoid; }

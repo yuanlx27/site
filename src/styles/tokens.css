@@ -1,12 +1,14 @@
 :root {
   color-scheme: light;
-  --paper: #f4ecd8;
-  --paper-deep: #e9dec3;
-  --ink: #2b2118;
-  --ink-soft: #6b5a45;
-  --rule: #b9a98a;
-  --accent: #8b2e2a;
-  --accent-hover: #5e1d1a;
+  --paper: #efe5cb;
+  --paper-deep: #e3d6b4;
+  --ink: #25211c;
+  --ink-soft: #5d554a;
+  --rule: #b5a687;
+  --accent: #a82e24;
+  --accent-hover: #7a1f19;
+  --selection: #c9b98f;
+  --code-ink: #365f4b;
   --grain-opacity: .04;
   /* The CDN's actual family name is KingHwaOldSong. Latin always comes first. */
   --font-body: "IM Fell English", "KingHwaOldSong", Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
@@ -25,24 +27,28 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --paper: #1e1913;
-    --paper-deep: #2a231a;
-    --ink: #e8dcc2;
-    --ink-soft: #a89a80;
-    --rule: #4a3f30;
-    --accent: #d08a5c;
-    --accent-hover: #e6af87;
+    --paper: #1a2030;
+    --paper-deep: #232b3d;
+    --ink: #e6dcc3;
+    --ink-soft: #a9a595;
+    --rule: #3b4560;
+    --accent: #d8b25f;
+    --accent-hover: #f0cf86;
+    --selection: #38466a;
+    --code-ink: #8fc0a0;
     --grain-opacity: .02;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #1e1913;
-  --paper-deep: #2a231a;
-  --ink: #e8dcc2;
-  --ink-soft: #a89a80;
-  --rule: #4a3f30;
-  --accent: #d08a5c;
-  --accent-hover: #e6af87;
+  --paper: #1a2030;
+  --paper-deep: #232b3d;
+  --ink: #e6dcc3;
+  --ink-soft: #a9a595;
+  --rule: #3b4560;
+  --accent: #d8b25f;
+  --accent-hover: #f0cf86;
+  --selection: #38466a;
+  --code-ink: #8fc0a0;
   --grain-opacity: .02;
 }

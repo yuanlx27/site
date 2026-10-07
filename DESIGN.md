@@ -1,3 +1,23 @@
+---
+name: Langxi Yuan — Xuan
+colors:
+  background: "#efe5cb"
+  surface: "#e3d6b4"
+  text: "#25211c"
+  secondary: "#5d554a"
+  primary: "#a82e24"
+  hover: "#7a1f19"
+  border: "#b5a687"
+  selection: "#c9b98f"
+  night-background: "#1a2030"
+  night-surface: "#232b3d"
+  night-text: "#e6dcc3"
+  night-secondary: "#a9a595"
+  night-border: "#3b4560"
+  night-primary: "#d8b25f"
+  night-hover: "#f0cf86"
+---
+
 # DESIGN.md
 
 Design spec for my personal site: a blog plus "more about me" pages, styled like an aged printed page. Built with Astro, hand-written CSS, and no UI framework.
@@ -42,32 +62,66 @@ Navigation: Home, Blog, Projects, About, Now, Contact. Six items fit as a single
 
 ### 3.1 Color
 
-Defined as CSS custom properties on `:root`.
+Inspired by hand-copied Chinese manuscripts: ink on xuan paper (宣纸) with a cinnabar seal (朱砂印), and, for dark mode, gold ink on indigo-dyed paper (绀纸金字). Defined as CSS custom properties on `:root`.
 
-| Token | Value | Use |
+These site colors are implemented in `src/styles/tokens.css`. The site palette is intentionally distinct from the editor backgrounds in the syntax-theme JSON files.
+
+**Light: "xuan paper"**
+
+| Token | Value | Traditional reference | Use |
+|---|---|---|---|
+| `--paper` | `#efe5cb` | 宣纸 xuan paper, slightly aged | Page background |
+| `--paper-deep` | `#e3d6b4` | 缣帛 aged silk | Cards, code blocks, table stripes |
+| `--ink` | `#25211c` | 墨 soot ink | Body text (never pure black) |
+| `--ink-soft` | `#5d554a` | 淡墨 diluted ink | Dates, captions, secondary text |
+| `--rule` | `#b5a687` | 赭 faint ochre | Lines and borders |
+| `--accent` | `#a82e24` | 朱砂 cinnabar | Links, small highlights, the seal |
+| `--accent-hover` | `#7a1f19` | 绛 deep crimson | Link hover |
+
+**Dark: "gold on indigo"**
+
+| Token | Value | Traditional reference / use |
 |---|---|---|
-| `--paper` | `#f4ecd8` | Page background |
-| `--paper-deep` | `#e9dec3` | Cards, code blocks, table stripes |
-| `--ink` | `#2b2118` | Body text (never pure black) |
-| `--ink-soft` | `#6b5a45` | Dates, captions, secondary text |
-| `--rule` | `#b9a98a` | Lines and borders |
-| `--accent` | `#8b2e2a` | Links, small highlights (oxblood red) |
-| `--accent-hover` | `#5e1d1a` | Link hover |
+| `--paper` | `#1a2030` | 绀青 deep indigo-dyed paper |
+| `--paper-deep` | `#232b3d` | Cards, code blocks |
+| `--ink` | `#e6dcc3` | 月白 moon white |
+| `--ink-soft` | `#a9a595` | Secondary text |
+| `--rule` | `#3b4560` | Lines and borders |
+| `--accent` | `#d8b25f` | 泥金 gold ink |
+| `--accent-hover` | `#f0cf86` | Lighter gold |
+
+**Syntax colors** use mineral pigments. The supplied spec calls the theme files `shiki/xuan-light.json` and `shiki/xuan-night.json`; their existing repository paths are `src/themes/xuan-light.json` and `src/themes/xuan-night.json`. Astro's built-in Shiki uses these files for code fences.
+
+| Token | Light | Night | Pigment |
+|---|---|---|---|
+| Keywords, tags | `#a02a21` | `#e8806c` | 朱砂 cinnabar |
+| Strings | `#365f4b` | `#8fc0a0` | 石绿 malachite |
+| Numbers, constants | `#7c4f08` | `#e6b94a` | 藤黄 gamboge |
+| Functions, links | `#2a4d78` | `#86a9d6` | 石青 azurite |
+| Types, classes | `#5a3f6b` | `#c9a6cc` | 绀紫 dark violet |
+| Comments | `#5f564a` | `#9aa0b0` | 淡墨 pale ink |
+
+Additional tokens retained from the editor themes:
+
+| Token | Light | Night | Use |
+|---|---|---|---|
+| `--selection` | `#c9b98f` | `#38466a` | Selected text background |
+| `--code-ink` | `#365f4b` | `#8fc0a0` | Inline code |
 
 Rules:
-- One accent color only. Use it sparingly.
-- Check contrast for all text/background pairs (target WCAG AA, 4.5:1 for body text). `--ink-soft` is the one most likely to need darkening.
+- Cinnabar is the single accent in light mode, gold in dark. Use sparingly, like a seal on a page; reserve the wider mineral-pigment palette for syntax.
+- Optional: a small square "seal" (a single character or initial, in `--accent`) beside the masthead, cinnabar in light mode and gold in night mode.
+- All body, link, and syntax text must be checked at WCAG AA (4.5:1) or better against its actual background. Check both paper surfaces, including code backgrounds. `--rule` and line numbers are decorative and intentionally lower contrast.
+- Code fences retain the JSON syntax colors. Inline code uses green; plain unhighlighted code uses body ink.
+- Selected text retains body ink over the supplied selection background.
+- Print remains neutral white paper and black ink.
+- If adding paper grain, prefer faint long fibers (xuan paper) over fine noise, at 3-6% opacity in light mode; reduce it in night mode.
 
-**Dark mode ("lamplight")** ships at launch. The default follows `prefers-color-scheme` in pure CSS (no inline script, no flash for users who never toggle); a manual light/dark/system toggle persists its override via a bundled TypeScript component script (see `ThemeToggle.astro` in §5). The dark tokens:
-
-| Token | Value |
-|---|---|
-| `--paper` | `#1e1913` |
-| `--paper-deep` | `#2a231a` |
-| `--ink` | `#e8dcc2` |
-| `--ink-soft` | `#a89a80` |
-| `--rule` | `#4a3f30` |
-| `--accent` | `#d08a5c` |
+The default follows `prefers-color-scheme` in pure CSS; the footer's
+**Xuan Light / Xuan Night / System** control persists the existing light/dark
+override via a bundled TypeScript script. Syntax colors follow the same
+`color-scheme` using native CSS `light-dark()`, with no extra client JavaScript.
+Night retains reduced grain opacity (2%) against its indigo background.
 
 ### 3.2 Typography
 
@@ -89,7 +143,7 @@ Rules:
 
 ### 3.3 Texture
 
-- Subtle paper grain over `--paper`, done with an inline SVG noise filter (`feTurbulence`) as a background image at very low opacity (3-6%), so there is no image file to download.
+- Subtle paper grain over `--paper`: prefer faint long xuan-paper fibers over fine noise, at 3-6% opacity in light mode and about 2% in night mode. An inline SVG filter (`feTurbulence`) with anisotropic frequencies (`.015 .65`) provides long fibers without a separate image download.
 - Optional soft vignette (radial gradient) at the page edges. Keep it faint.
 - Respect `prefers-reduced-motion` and avoid anything that makes text harder to read. Texture must never sit over text at high contrast.
 
@@ -98,7 +152,7 @@ Rules:
 - **Rules:** thin double rule under the masthead and between major sections (`border-top: 3px double var(--rule)`).
 - **Masthead:** site name set large and centered, with a small tagline and a dateline ("Saturday, 3 October 2026") in the typewriter font.
 - **Ornaments:** a small centered fleuron (`❦` or `⁂`) as the section divider instead of `<hr>`.
-- **Links:** underlined in `--accent` with a thin offset underline, darkening on hover.
+- **Links:** underlined in `--accent` with a thin offset underline; light-mode cinnabar deepens to crimson on hover, while night-mode gold brightens.
 - **Images:** slight sepia treatment (`filter: sepia(.2) contrast(.95)`) and a thin border, with italic captions below.
 - **Blockquotes:** left rule, italic, indented, like a pull quote.
 - **Footnotes:** small, numbered, set below a short rule.
@@ -181,6 +235,9 @@ Projects can be a second collection (`src/content/projects/`) with `title`, `yea
 │  │  └─ blog/
 │  │     ├─ index.astro
 │  │     └─ [...slug].astro
+│  ├─ themes/
+│  │  ├─ xuan-light.json     mineral-pigment syntax colors
+│  │  └─ xuan-night.json
 │  └─ styles/
 │     ├─ tokens.css       colors, type scale, spacing
 │     ├─ base.css         reset, body, links, texture
@@ -233,7 +290,7 @@ Projects can be a second collection (`src/content/projects/`) with `title`, `yea
 
 - **Feel:** newspaper-meets-book, a *well-preserved* old print — wear is hinted at, never heavy-handed.
 - **Site name:** Langxi Yuan. **Tagline:** "An ordinary man with an extraordinary dream".
-- **Dark mode:** light and lamplight both ship at launch; CSS-first system default plus a TS-only toggle.
+- **Colors:** Xuan Light (ink on xuan paper with cinnabar) and Xuan Night (gold on indigo); target tokens in §3.1. CSS-first system default plus a TS-only toggle.
 - **Tags:** tag pages at launch. **Search:** not planned.
 - **Language:** content primarily Chinese with English mixed in; UI chrome in English; no i18n routing — the font stack gives both scripts a consistent look (see DESIGN.zh.md).
 - **Fonts:** English defaults to IM Fell English; Chinese defaults to KingHwa Old Song (subsetted CDN); code defaults to TT2020 Style E (subsetted, self-hosted).

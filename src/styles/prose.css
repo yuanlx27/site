@@ -16,9 +16,17 @@
   font-style: italic;
 }
 .prose blockquote p:last-child { margin-bottom: 0; }
-.prose code { font-family: var(--font-code); font-size: .95em; vertical-align: .04em; overflow-wrap: anywhere; }
-.prose pre { max-width: 100%; overflow-x: auto; padding: var(--space-3); border: 1px solid var(--rule); line-height: 1.7; }
-.prose pre code { padding: 0; font-size: .95rem; vertical-align: baseline; overflow-wrap: normal; }
+.prose code { color: var(--code-ink); font-family: var(--font-code); font-size: .95em; vertical-align: .04em; overflow-wrap: anywhere; }
+.prose pre { color: var(--ink); background: var(--paper-deep); max-width: 100%; overflow-x: auto; padding: var(--space-3); border: 1px solid var(--rule); line-height: 1.7; }
+.prose pre code { color: inherit; padding: 0; font-size: .95rem; vertical-align: baseline; overflow-wrap: normal; }
+/* color-scheme follows both the system preference and the saved manual override. */
+.prose .astro-code, .prose .astro-code span {
+  color: light-dark(var(--shiki-light), var(--shiki-dark));
+  background-color: light-dark(var(--shiki-light-bg), var(--shiki-dark-bg));
+  font-style: var(--shiki-light-font-style);
+  font-weight: var(--shiki-light-font-weight);
+  text-decoration: var(--shiki-light-text-decoration);
+}
 .prose table { display: block; max-width: 100%; width: max-content; overflow-x: auto; border-collapse: collapse; margin-block: var(--space-5); font-size: 1rem; }
 .prose th, .prose td { padding: .6rem 1rem; text-align: left; border: 1px solid var(--rule); min-width: 7rem; }
 .prose th { font-weight: 400; background: var(--paper-deep); }

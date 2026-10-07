@@ -73,8 +73,12 @@ The only third-party runtime resource is the subsetted KingHwa Old Song font
 from ZeoSeven. Its actual CSS family name is `KingHwaOldSong`. System serif
 fallbacks keep the site usable if that CDN is unavailable.
 
-The initial theme follows the OS in pure CSS. The footer control selects Light,
-Lamplight, or System. Its bundled, external TypeScript script persists explicit
+The Xuan palette uses aged xuan paper with cinnabar accents in light mode and
+gold accents on deep indigo in night mode, with a faint long-fiber paper texture.
+The original JSON themes in `src/themes/` also supply build-time Shiki syntax
+highlighting. CSS `light-dark()` keeps code colors in sync with the page theme.
+The initial theme follows the OS in pure CSS. The footer control selects Xuan
+Light, Xuan Night, or System. Its bundled, external TypeScript script persists explicit
 overrides in localStorage. With JavaScript disabled, system themes and every
 content page still work; the inactive theme control is hidden. A saved manual
 override applies after the deferred module loads (no inline bootstrap script).

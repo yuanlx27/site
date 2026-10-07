@@ -113,14 +113,53 @@ const luminance = hex => {
   return values[0] * .2126 + values[1] * .7152 + values[2] * .0722;
 };
 
+test('site palettes match DESIGN.md independently of the syntax themes', async () => {
+  const css = await readFile('src/styles/tokens.css', 'utf8');
+  const design = await readFile('DESIGN.md', 'utf8');
+  const sections = [
+    design.split('**Light:')[1].split('**Dark:')[0],
+    design.split('**Dark:')[1].split('**Syntax colors**')[0],
+  ];
+  const palettes = [...css.matchAll(/--paper: (#[a-f\d]+);([\s\S]*?)--grain-opacity/g)];
+  assert.equal(palettes.length, 3); // Light, system dark, explicit dark.
+  for (const [index, [, paper, rest]] of palettes.entries()) {
+    const expected = [...sections[index === 0 ? 0 : 1]
+      .matchAll(/\| `--([\w-]+)` \| `(#[a-f\d]+)` \|/g)];
+    assert.equal(expected.length, 7);
+    const tokens = { paper, ...Object.fromEntries([...rest.matchAll(/--([\w-]+): (#[a-f\d]+);/g)]
+      .map(([, key, value]) => [key, value])) };
+    for (const [, key, value] of expected) assert.equal(tokens[key], value, `${index}: ${key}`);
+    const theme = JSON.parse(await readFile(`src/themes/xuan-${index === 0 ? 'light' : 'night'}.json`, 'utf8'));
+    assert.equal(tokens.selection, theme.colors['editor.selectionBackground']);
+    assert.equal(tokens['code-ink'], theme.tokenColors
+      .find(token => token.scope.includes('markup.inline.raw')).settings.foreground);
+  }
+});
+
+test('syntax text meets WCAG AA on its editor background in both themes', async () => {
+  for (const name of ['light', 'night']) {
+    const theme = JSON.parse(await readFile(`src/themes/xuan-${name}.json`, 'utf8'));
+    const background = luminance(theme.colors['editor.background']);
+    const colors = [theme.colors['editor.foreground'], ...theme.tokenColors
+      .map(token => token.settings.foreground).filter(Boolean)];
+    for (const color of colors) {
+      const foreground = luminance(color);
+      const contrast = (Math.max(background, foreground) + .05) / (Math.min(background, foreground) + .05);
+      assert.ok(contrast >= 4.5, `${name}: ${color}: ${contrast.toFixed(2)}:1`);
+    }
+  }
+});
+
 test('all text tokens meet WCAG AA on both paper surfaces in both themes', async () => {
   const css = await readFile('src/styles/tokens.css', 'utf8');
   const palettes = [...css.matchAll(/--paper: (#[a-f\d]+);([\s\S]*?)--grain-opacity/g)];
   assert.equal(palettes.length, 3); // Light, system dark, explicit dark.
   for (const [, paper, rest] of palettes) {
     const tokens = Object.fromEntries([...rest.matchAll(/--([\w-]+): (#[a-f\d]+);/g)].map(([, key, value]) => [key, value]));
+    const selectionContrast = (luminance(tokens.ink) + .05) / (luminance(tokens.selection) + .05);
+    assert.ok(Math.max(selectionContrast, 1 / selectionContrast) >= 4.5, 'selected text contrast');
     for (const background of [paper, tokens['paper-deep']]) {
-      for (const name of ['ink', 'ink-soft', 'accent', 'accent-hover']) {
+      for (const name of ['ink', 'ink-soft', 'accent', 'accent-hover', 'code-ink']) {
         const a = luminance(background), b = luminance(tokens[name]);
         const contrast = (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
         assert.ok(contrast >= 4.5, `${name} on ${background}: ${contrast.toFixed(2)}:1`);

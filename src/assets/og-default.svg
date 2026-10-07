@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#f4ecd8"/>
-  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#b9a98a"/>
-  <path d="M100 110h1000M100 116h1000M100 502h1000M100 508h1000" stroke="#b9a98a"/>
-  <text x="600" y="91" text-anchor="middle" font-family="monospace" font-size="17" letter-spacing="5" fill="#6b5a45">A PERSONAL JOURNAL</text>
-  <text x="600" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="110" letter-spacing="-4" fill="#2b2118">Langxi Yuan</text>
-  <text x="600" y="357" text-anchor="middle" font-family="Georgia, serif" font-size="29" font-style="italic" fill="#6b5a45">An ordinary man with an extraordinary dream</text>
-  <text x="600" y="445" text-anchor="middle" font-family="Georgia, serif" font-size="42" fill="#8b2e2a">❦</text>
-  <text x="600" y="548" text-anchor="middle" font-family="monospace" font-size="18" letter-spacing="2" fill="#6b5a45">yuanlx27.github.io</text>
+  <rect width="1200" height="630" fill="#efe5cb"/>
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#b5a687"/>
+  <path d="M100 110h1000M100 116h1000M100 502h1000M100 508h1000" stroke="#b5a687"/>
+  <text x="600" y="91" text-anchor="middle" font-family="monospace" font-size="17" letter-spacing="5" fill="#5d554a">A PERSONAL JOURNAL</text>
+  <text x="600" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="110" letter-spacing="-4" fill="#25211c">Langxi Yuan</text>
+  <text x="600" y="357" text-anchor="middle" font-family="Georgia, serif" font-size="29" font-style="italic" fill="#5d554a">An ordinary man with an extraordinary dream</text>
+  <text x="600" y="445" text-anchor="middle" font-family="Georgia, serif" font-size="42" fill="#a82e24">❦</text>
+  <text x="600" y="548" text-anchor="middle" font-family="monospace" font-size="18" letter-spacing="2" fill="#5d554a">yuanlx27.github.io</text>
 </svg>
