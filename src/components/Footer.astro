@@ -5,7 +5,7 @@ import { site } from '../data/site';
 <footer class="shell" lang="en">
   <div class="footer-line">
     <span>© {new Date().getUTCFullYear()} {site.name}</span>
-    <div><a href={site.github} rel="me">GitHub</a><span aria-hidden="true"> · </span><a href="/rss.xml">RSS feed</a></div>
+    <div><a href={site.github} rel="me">GitHub</a><span aria-hidden="true"> · </span><a href={import.meta.env.BASE_URL + 'rss.xml'}>RSS feed</a></div>
   </div>
   <p class="colophon">Set in IM Fell English &amp; KingHwa Old Song.<br />A little corner of the web, printed in pixels.</p>
   <ThemeToggle />

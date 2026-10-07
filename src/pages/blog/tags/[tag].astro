@@ -21,6 +21,6 @@ const { tag, posts } = Astro.props;
     <p class="label" lang="en">{posts.length} {posts.length === 1 ? 'entry' : 'entries'} in this collection</p>
   </header>
   <div class="ruled"><PostList posts={posts} /></div>
-  <p class="back-link" lang="en"><a href="/blog/">← Back to all writing</a></p>
+  <p class="back-link" lang="en"><a href={import.meta.env.BASE_URL + 'blog/'}>← Back to all writing</a></p>
 </BaseLayout>
 <style>.back-link { margin-top: var(--space-5); font-size: 1rem; }</style>

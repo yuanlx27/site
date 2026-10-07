@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yuanlx27.github.io/sitemap-index.xml
+Sitemap: https://yuanlx27.github.io/site/sitemap-index.xml

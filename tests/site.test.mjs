@@ -5,6 +5,7 @@ import path from 'node:path';
 
 const root = path.resolve('dist');
 const origin = 'https://yuanlx27.github.io';
+const basePath = '/site/';
 const allFiles = await readdir(root, { recursive: true });
 const htmlFiles = allFiles.filter(file => file.endsWith('.html'));
 const pages = await Promise.all(htmlFiles.map(async file => ({
@@ -28,13 +29,13 @@ test('pages have language, semantic structure, SEO, and no inline scripts', () =
     assert.match(html, /<a[^>]*href="#content"/, file);
     assert.match(html, /<title>[^<]+<\/title>/, file);
     assert.match(html, /name="description" content="[^"]+"/, file);
-    assert.match(html, /rel="canonical" href="https:\/\/yuanlx27.github.io\//, file);
-    assert.match(html, /property="og:image" content="https:\/\/yuanlx27.github.io\//, file);
+    assert.match(html, /rel="canonical" href="https:\/\/yuanlx27.github.io\/site\//, file);
+    assert.match(html, /property="og:image" content="https:\/\/yuanlx27.github.io\/site\//, file);
     assert.match(html, /name="twitter:card" content="summary_large_image"/, file);
     const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)];
     assert.equal(scripts.length, 1, `${file}: only the theme module should ship`);
     for (const [, attributes, body] of scripts) {
-      assert.match(attributes, /\bsrc="\/_astro\/[^"]+\.js"/, file);
+      assert.match(attributes, /\bsrc="\/site\/_astro\/[^"]+\.js"/, file);
       assert.equal(body.trim(), '', `${file}: no inline JavaScript`);
     }
     assert.doesNotMatch(html, /\son(?:click|change|load)\s*=/i, file);
@@ -45,11 +46,12 @@ test('pages have language, semantic structure, SEO, and no inline scripts', () =
 
 test('every local link, fragment, and asset resolves', async () => {
   for (const { file, html } of pages) {
-    const base = new URL(file === 'index.html' ? '/' : '/' + file.replace(/index\.html$/, ''), origin);
+    const base = new URL(basePath + file.replace(/index\.html$/, ''), origin);
     for (const [, raw] of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
       const url = new URL(raw.replaceAll('&amp;', '&'), base);
       if (url.origin !== origin) continue;
-      let local = decodeURIComponent(url.pathname).replace(/^\//, '');
+      assert.ok(url.pathname.startsWith(basePath), `${file}: URL outside base path: ${raw}`);
+      let local = decodeURIComponent(url.pathname.slice(basePath.length));
       if (!path.extname(local)) local = path.join(local, 'index.html');
       const target = path.join(root, local);
       await assert.doesNotReject(access(target), `${file} → ${raw}`);
@@ -70,7 +72,7 @@ test('code uses the self-hosted TT2020 Latin subset with a Chinese fallback', as
   const face = css.match(/@font-face\s*\{[^}]*font-family:["']?TT2020 Style E["']?[^}]*\}/)?.[0];
   assert.ok(face, 'TT2020 @font-face must be included in the built CSS');
   assert.match(face, /font-display:swap/);
-  assert.match(face, /\/fonts\/tt2020\/tt2020-style-e-latin-400-normal\.woff2/);
+  assert.match(face, /\/site\/fonts\/tt2020\/tt2020-style-e-latin-400-normal\.woff2/);
   assert.match(face, /unicode-range:/);
   assert.doesNotMatch(css, /IBM Plex Mono|ibm-plex-mono/);
   const font = await readFile(path.join(root, 'fonts/tt2020/tt2020-style-e-latin-400-normal.woff2'));
@@ -94,15 +96,15 @@ test('Chinese tag pages, chronological listings, RSS, and draft exclusion agree'
   for (const { file, html } of pages) {
     assert.doesNotMatch(html, /Unpublished draft|draft-only/, file);
     if (file.startsWith('blog/') && !file.includes('/tags/') && file !== 'blog/index.html') {
-      const url = new URL('/' + file.replace(/index\.html$/, ''), origin).href;
+      const url = new URL(basePath + file.replace(/index\.html$/, ''), origin).href;
       assert.ok(rss.includes(url), `RSS missing ${url}`);
       assert.ok(sitemap.includes(url), `Sitemap missing ${url}`);
     }
   }
   assert.doesNotMatch(rss + sitemap, /draft-example|draft-only/);
   assert.ok(!allFiles.some(file => /draft-example|draft-only/.test(file)));
-  for (const [, href] of archive.matchAll(/href="(\/blog\/tags\/[^"]+)"/g)) {
-    const tagPage = await readFile(path.join(root, decodeURIComponent(href), 'index.html'), 'utf8');
+  for (const [, href] of archive.matchAll(/href="(\/site\/blog\/tags\/[^"]+)"/g)) {
+    const tagPage = await readFile(path.join(root, decodeURIComponent(href.slice(basePath.length)), 'index.html'), 'utf8');
     assert.match(tagPage, /Filed under/);
   }
 });

@@ -7,6 +7,7 @@ import xuanNight from './src/themes/xuan-night.json' with { type: 'json' };
 // https://astro.build/config
 export default defineConfig({
   site: 'https://yuanlx27.github.io',
+  base: '/site/',
   output: 'static',
   trailingSlash: 'always',
   integrations: [sitemap({ filter: (page) => !page.endsWith('/404/') })],

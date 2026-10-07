@@ -13,10 +13,10 @@ const showTypographyProject = (await getPosts()).some(post => post.id === 'betwe
   <div class="projects">
     <ProjectCard number="01" title="A home on the web" year={2026}
       summary="就是你正在读的这个网站。Astro、Markdown 与手写 CSS，把个人写作装进一张温暖的纸里。"
-      url="/" repo="https://github.com/yuanlx27/yuanlx27.github.io" />
+      url={import.meta.env.BASE_URL} repo="https://github.com/yuanlx27/site" />
     {showTypographyProject && <ProjectCard number="02" title="Between two scripts" year={2026}
       summary="这个网站的排版试样。让京华老宋体与 IM Fell English 坐在同一行，试试中文、英文、代码与注脚怎样相处。"
-      url="/blog/between-two-scripts/" />}
+      url={import.meta.env.BASE_URL + 'blog/between-two-scripts/'} />}
   </div>
   <p class="worknote" lang="en">A small workbench. Room for whatever comes next.</p>
 </BaseLayout>

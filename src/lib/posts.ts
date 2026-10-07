@@ -7,8 +7,8 @@ export async function getPosts() {
 }
 
 export const isoDate = (date: Date) => date.toISOString().slice(0, 10);
-export const postUrl = (id: string) => `/blog/${id.split('/').map(encodeURIComponent).join('/')}/`;
-export const tagUrl = (tag: string) => `/blog/tags/${encodeURIComponent(tag)}/`;
+export const postUrl = (id: string) => `${import.meta.env.BASE_URL}blog/${id.split('/').map(encodeURIComponent).join('/')}/`;
+export const tagUrl = (tag: string) => `${import.meta.env.BASE_URL}blog/tags/${encodeURIComponent(tag)}/`;
 
 // Count CJK characters separately from space-delimited words in mixed-script posts.
 export function readingMinutes(body: string = '') {

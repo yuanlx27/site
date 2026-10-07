@@ -14,4 +14,4 @@ export const navigation = [
   { label: 'About', href: '/about/' },
   { label: 'Now', href: '/now/' },
   { label: 'Contact', href: '/contact/' },
-];
+].map(item => ({ ...item, href: import.meta.env.BASE_URL + item.href.slice(1) }));

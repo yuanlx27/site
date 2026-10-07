@@ -28,7 +28,7 @@ import { site } from '../data/site';
     <p>更长的自我介绍、兴趣清单和一张照片，还没有放进来。这一页先留些空白，等真实的故事慢慢填满。</p>
   </Prose>
   <Ornament />
-  <p class="closing">想知道这里最近在忙什么，可以看看 <a href="/now/" lang="en">Now</a>；想打个招呼，就去 <a href="/contact/" lang="en">Contact</a>。</p>
+  <p class="closing">想知道这里最近在忙什么，可以看看 <a href={import.meta.env.BASE_URL + 'now/'} lang="en">Now</a>；想打个招呼，就去 <a href={import.meta.env.BASE_URL + 'contact/'} lang="en">Contact</a>。</p>
 </BaseLayout>
 <style>
   .introduction { display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: var(--space-5); align-items: center; width: fit-content; max-width: 100%; margin: 0 auto var(--space-5); }

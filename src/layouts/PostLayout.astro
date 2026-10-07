@@ -20,7 +20,7 @@ const { title, description, heroImage, heroAlt, pubDate, updatedDate } = post.da
     {heroImage && <figure><Image src={heroImage} alt={heroAlt!} widths={[360, 672, 1344]} sizes="(max-width: 720px) 90vw, 672px" loading="eager" /><figcaption>{heroAlt}</figcaption></figure>}
     <Prose dropCap><slot /></Prose>
     <Ornament />
-    <div class="endnote" lang="en"><a href="/blog/">← Back to all writing</a><a href="/rss.xml">Subscribe via RSS ↗</a></div>
+    <div class="endnote" lang="en"><a href={import.meta.env.BASE_URL + 'blog/'}>← Back to all writing</a><a href={import.meta.env.BASE_URL + 'rss.xml'}>Subscribe via RSS ↗</a></div>
   </article>
 </BaseLayout>
 <style>

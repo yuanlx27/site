@@ -54,7 +54,7 @@ Edit the placeholders and write your post, then set `draft: false` to publish.
 Optionally add `updatedDate`, `heroImage: ./cover.jpg`, and descriptive `heroAlt`
 text. Images can live beside the post's `index.md`.
 
-The published URL is `/blog/my-post/`, without `/index/`.
+The published URL is `/site/blog/my-post/`, without `/index/`.
 Existing flat files such as `src/content/blog/my-post.md` still work too.
 Posts are sorted newest-first, then by ID for equal dates. Drafts are visible
 on the dev site for previewing. Production builds exclude drafts everywhere,
@@ -89,8 +89,8 @@ The masthead date is the UTC **build date**, not a live client-side clock.
 The included GitHub Actions workflow checks, builds, tests, and deploys to
 GitHub Pages on pushes to `main` or a manual run.
 In the repository's **Settings → Pages**, choose **GitHub Actions** as the source.
-The production URL is `https://yuanlx27.github.io`; no base path or server adapter
-is required. Astro emits the custom error page as `dist/404.html`.
+The production URL is `https://yuanlx27.github.io/site/`, with `/site/` configured
+as Astro's base path. No server adapter is required. Astro emits the custom error page as `dist/404.html`.
 
 ## Checks
 

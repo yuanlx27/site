@@ -8,7 +8,7 @@ const dateline = new Intl.DateTimeFormat('en-GB', {
 ---
 <header class="masthead shell" lang="en">
   <div class="edition label"><span>A personal journal</span><span>Words &amp; other things</span></div>
-  <a class="site-title" href="/" aria-label={`${site.name} — Home`}>{site.name}</a>
+  <a class="site-title" href={import.meta.env.BASE_URL} aria-label={`${site.name} — Home`}>{site.name}</a>
   <p class="tagline">{site.tagline}</p>
   <p class="dateline label"><span aria-hidden="true">✦</span> <time datetime={date.toISOString().slice(0, 10)}>{dateline}</time> <span aria-hidden="true">✦</span></p>
   <Nav />

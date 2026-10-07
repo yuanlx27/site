@@ -13,7 +13,7 @@ import { site } from '../data/site';
   <dl class="contact-list">
     <div><dt lang="en">Email</dt><dd>{site.email ? <a href={`mailto:${site.email}`}>{site.email}</a> : <span>邮箱地址暂未公开。</span>}</dd></div>
     <div><dt lang="en">GitHub</dt><dd><a href={site.github} rel="me" lang="en">@yuanlx27 <span aria-hidden="true">↗</span></a></dd></div>
-    <div><dt lang="en">RSS</dt><dd><a href="/rss.xml" lang="en">Follow the journal <span aria-hidden="true">↗</span></a></dd></div>
+    <div><dt lang="en">RSS</dt><dd><a href={import.meta.env.BASE_URL + 'rss.xml'} lang="en">Follow the journal <span aria-hidden="true">↗</span></a></dd></div>
   </dl>
   <Ornament />
   <p class="postscript" lang="en">No forms, no mailing lists. Just a small corner of the open web.</p>

@@ -8,7 +8,7 @@ import Ornament from '../components/Ornament.astro';
     <h1 lang="en">A page gone astray.</h1>
     <Ornament />
     <p>这一页似乎夹进了别的书里。<br />也许地址写错了，也许它已经搬了家。</p>
-    <div class="links" lang="en"><a href="/">← Return home</a><a href="/blog/">Browse the journal →</a></div>
+    <div class="links" lang="en"><a href={import.meta.env.BASE_URL}>← Return home</a><a href={import.meta.env.BASE_URL + 'blog/'}>Browse the journal →</a></div>
   </div>
 </BaseLayout>
 <style>
