@@ -2,8 +2,8 @@
 title: "在中文与 English 之间"
 description: "一份中西混排试样：宋体与旧式衬线字，怎样在同一张纸上相处。"
 pubDate: 2026-10-01
-tags: ["排版", "示例"]
-draft: true
+tags: ["typography", "examples"]
+draft: false
 ---
 
 中英文放在一起，像两种不同的声音。一个方正、紧凑，一个舒展、轻重分明。好的混排，不是让它们变得一样，而是让它们彼此听见。

@@ -2,8 +2,8 @@
 title: "留一点空白"
 description: "不急着填满每一页。给尚未成形的想法，也给下一次落笔，留一个位置。"
 pubDate: 2026-09-28
-tags: ["随笔", "示例"]
-draft: true
+tags: ["essays", "examples"]
+draft: false
 ---
 
 空白不是缺少内容。有时，它只是一个邀请：你可以在这里停一下，也可以在下一次回来时，添上新的东西。
