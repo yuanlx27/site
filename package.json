@@ -1,6 +1,7 @@
 {
   "name": "langxi-yuan-site",
   "private": true,
+  "license": "MIT",
   "packageManager": "pnpm@11.23.0",
   "type": "module",
   "version": "0.0.1",
