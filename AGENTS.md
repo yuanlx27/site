@@ -8,6 +8,11 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+### Commits
+
+Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) for Git.
+Good commits have detailed bodies. Titles no more than 50 columns. Body no more than 72 columns.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
